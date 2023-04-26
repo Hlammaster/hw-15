@@ -9,8 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static com.codeborne.selenide.Configuration.browserSize;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class MainPageTest {
     @BeforeAll
@@ -57,13 +56,26 @@ public class MainPageTest {
 
     }
     @Test
-    void cardTest(){
+    void addProductToCardTest(){
         open("https://store.steampowered.com/");
         $("#store_nav_search_term").setValue("Arx Fatalis").pressEnter();
         $(".responsive_search_name_combined").click();
         $("#btn_add_to_cart_302").click();
         $(".pageheader").shouldHave(Condition.text("Ваша корзина"));
         $(".cart_status_message").shouldHave(Condition.text("Ваш товар был добавлен!"));
+
+    }
+
+    @Test
+    void friendsSearchTest (){
+        open("https://store.steampowered.com/");
+         $(".supernav_container").$(byText("СООБЩЕСТВО")).click();
+         $("#SearchPlayers").setValue("Qa automation").pressEnter();
+         $("#search_results").shouldHave(Condition.text("automation"));
+
+
+
+
 
     }
 
